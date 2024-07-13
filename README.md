@@ -28,14 +28,3 @@ django-admin startproject storefront .
 ```bash
 mython manage.py runserver 8080
 ```
-
-
-## Create apps
-Defined in storefront/settings.py 
-Preconfigured apps:
-- admin: Admin interface for managing data
-- auth: Authenticate users
-- contenttypes: 
-- sessions: [legacy] Temporary memory in server for managing user sessions
-- messages: For displaying one-time notification to the user
-- staticfiles: For serving static files
