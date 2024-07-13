@@ -1,4 +1,5 @@
 venv
 tmp
-storefront/__pycache__
+*/__pycache__
 db.sqlite3
+*/*/__pycache__/*
