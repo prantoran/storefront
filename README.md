@@ -33,3 +33,5 @@ mython manage.py runserver 8080
 Notes for different Django topics:
 - [App](/Notes/App.md)
 - [View](/Notes/View.md)
+- [Template](/Notes/Template.md)
+- [Debug](/Notes/Debug.md)
