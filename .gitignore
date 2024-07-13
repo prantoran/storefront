@@ -1,0 +1,4 @@
+venv
+tmp
+storefront/__pycache__
+db.sqlite3
