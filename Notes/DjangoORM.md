@@ -35,3 +35,10 @@ python manage.py migrate store 0003
 
 
 ## Populating the db
+
+
+## Metadata
+
+https://docs.djangoproject.com/en/5.0/ref/models/options
+
+Define an inner class called Meta (name important) within the main model class.
