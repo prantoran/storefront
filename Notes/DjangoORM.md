@@ -32,7 +32,21 @@ python manage.py migrate store 0003
 - Show the actual SQL code executed at runtime.
 
 ### Reverse migrations
+#### Opt 1: Undo the change and create a new migration
 
+#### Opt 2: Completely revert the last migration
+Downgrade the database to a previous migration.
+
+```bash
+# migrate to a previous migration number
+python manage.py migrate store 0003
+```
+
+The code changes of the removed migrations will still reside in code, so they will be re-applied when we run `python manage.py migrate`. Hence, manually remove the changes from code. We can use git:
+```bash
+git log --oneline
+git reset --hard HEAD~1
+```
 
 ## Populating the db
 
