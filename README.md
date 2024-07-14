@@ -35,3 +35,4 @@ Notes for different Django topics:
 - [View](/Notes/View.md)
 - [Template](/Notes/Template.md)
 - [Debug](/Notes/Debug.md)
+- [Model](/Notes/Model.md))
