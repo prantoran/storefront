@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-r(-ff2*jfy0q^u$n2lgni8@kp8p3spf=%w%4t#kvzn6a_#^jwu
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -87,8 +87,18 @@ WSGI_APPLICATION = 'storefront.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'mysql.connector.django',
+        'NAME': 'storefront',
+        'HOST': '172.17.0.2',
+        'PORT': '3306',
+        'USER': 'root',
+        'PASSWORD': 'my-secret-pw',
+        'default-character-set': 'utf8',
+        'OPTIONS': {
+          'autocommit': True,
+          'sql_mode': 'traditional'
+        },
+        'CONN_HEALTH_CHECKS': True
     }
 }
 
