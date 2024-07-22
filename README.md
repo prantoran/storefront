@@ -37,3 +37,4 @@ Notes for different Django topics:
 - [Debug](/Notes/Debug.md)
 - [Model](/Notes/Model.md)
 - [Database](/Notes/DB.md)
+- [ORM](/Notes/DjangoORM.md)

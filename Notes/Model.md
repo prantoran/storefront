@@ -1,6 +1,6 @@
 
 
-## Create modls
+## Create models
 Using app
 ```python
 python manage.py startapp store
