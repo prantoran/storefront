@@ -90,3 +90,24 @@ python manage.py migrate
 ```bash
 python manage.py migrate store 0004
 ```
+
+# Manager
+
+Every model has an attribute called `objects`.
+i.e. `Products.objects`
+
+This is called a manager, an interface to the db.
+
+
+# QuerySet
+When we execute a manager's method, we get a QuerySet object. i.e. `query_set = Products.objects.all()`.
+
+A QuerySet is an object that encapsulates a query. It is lazy (evaluated at a later point).
+
+Django will execute a queryset under certain scenarios:
+- We iterate over the queryset. i.e. `for p in query_set: `
+- We convert it to a list. i.e. `list(query_set)`
+- We access individual element. i.e. `query_set[0]`, `query_set[0:5]`
+
+
+Operations on a queryset will return a new queryset. i.e. `query_set.filter().filter().order_by()`
