@@ -50,9 +50,43 @@ git reset --hard HEAD~1
 
 ## Populating the db
 
+```bash
+python manage.py makemigrations store --empty
+```
 
 ## Metadata
 
 https://docs.djangoproject.com/en/5.0/ref/models/options
 
 Define an inner class called Meta (name important) within the main model class.
+
+## Generate or update DB schema using manual migrations
+
+### Create a migration
+```bash
+python manage.py makemigrations store --empty
+```
+
+### Update operations in the created migration
+i.e.
+```json
+    operations = [
+        migrations.RunSQL("""
+            INSERT INTO store_collection (title)
+            VALUES ('collection1')
+        """, """
+            DELETE FROM store_collection
+            WHERE title='collection1'
+        """)
+    ]
+```
+### Apply migration
+```bash
+python manage.py migrate
+```
+
+### Undo migration
+
+```bash
+python manage.py migrate store 0004
+```
