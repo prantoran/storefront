@@ -53,7 +53,13 @@ https://stackoverflow.com/questions/43446218/dpkg-error-processing-package-mysql
 ### Install
 https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-22-04
 
-
 # DB IDE
 ## DataGrip
 
+# Generate dummy data
+- [mockaroo.com](https://mockaroo.com/)
+- Downlaod as SQL, drag and drop to DataGrip, select schema as storefront and execute
+- Check using a new query console for storefront
+```sql
+SELECT COUNT(*) FROM store_customer;
+```
