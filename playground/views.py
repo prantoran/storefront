@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.db.models import Q, F
-from store.models import Product
+from store.models import Product, OrderItem
 
 # Create your views here.
 
@@ -34,12 +34,21 @@ def say_hello(request):
     # # Compare with a field in a related table
     # queryset = Product.objects.filter(inventory=F('collection__id'))
 
-    # sorting
-    queryset = Product.objects.order_by('unit_price', '-title').reverse()
-    
+    # # sorting
+    # queryset = Product.objects.order_by('unit_price', '-title').reverse()
     # product = Product.objects.order_by('unit_price')[0]
     product_cheapest = Product.objects.earliest('unit_price')
     # product_priciest = Product.objects.latest('unit_price')
 
+    # # limiting results
+    # queryset = Product.objects.all()[5:12]
+
+    # # select
+    # queryset = Product.objects.values('id', 'title', 'unit_price', 'collection__title') # returns array of dicts
+    queryset = Product.objects.values_list('id', 'title', 'unit_price', 'collection__title')
+
+    queryset = Product.objects.filter(
+        id__in=OrderItem.objects.values('product__id').distinct().order_by('title')
+    )
     # return HttpResponse('Hello World')
     return render(request, 'hello.html', { 'name': 'Goku', 'products': list(queryset), 'cheapest': product_cheapest })
