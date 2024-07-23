@@ -14,7 +14,7 @@
 
     {% if products %}
         {% for p in products %}
-            <p> {{p}} </p>
+            <p> {{p.unit_price}} - {{p.title}} - {{p.description}} </p>
         {% endfor %}
     {% endif %}
 </body>
