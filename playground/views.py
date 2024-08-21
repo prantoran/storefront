@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
-from django.db.models import Q
-from django.db.models import F, Func, Value # Expression classes
+from django.db.models import Q, DecimalField
+from django.db.models import F, Func, Value, ExpressionWrapper # Expression classes
 from django.db.models.functions import Concat
 from django.db.models.aggregates import Count, Max, Min, Avg, Sum
 from store.models import Product, OrderItem, Order, Customer
@@ -89,7 +89,10 @@ def annotate(request):
         full_name=Func(F('first_name'), Value(' '),
                         F('last_name'), function='CONCAT'),
         full_name_alt=Concat('first_name', Value(' '), 'last_name'),
-        orders_count=Count('order')
+        orders_count=Count('order'),
+        discounted_price=ExpressionWrapper(
+            F('unit_price') * 0.8, output_field=DecimalField()
+        )
     )
     return render(request, 'hello.html', { 'name': 'Goku', 'annotate_result': list(queryset)})
 
@@ -116,3 +119,11 @@ def annotate(request):
             11
     ORDER BY NULL
     '''
+
+def annotate(request):
+    queryset = Product.objects.annotate(
+        discounted_price=ExpressionWrapper(
+            F('unit_price') * 0.8, output_field=DecimalField()
+        )
+    )
+    return render(request, 'hello.html', { 'name': 'Goku', 'annotate_product_result': list(queryset)})

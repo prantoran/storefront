@@ -34,5 +34,11 @@
             <p> {{p.is_new}} - {{p.new_id}} - {{p.full_name}} - {{p.full_name_alt}} - {{p.orders_count}} </p>
         {% endfor %}
     {% endif %}
+    
+    {% if annotate_product_result %}
+        {% for p in annotate_product_result %}
+            <p> {{p.discounted_price}} </p>
+        {% endfor %}
+    {% endif %}
 </body>
 </html>

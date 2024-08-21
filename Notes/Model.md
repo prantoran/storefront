@@ -25,3 +25,4 @@ Django automatically creates an attribute in the Customer class for the object
 - F
 - Func
 - Aggregate
+- ExpressionWrapper
