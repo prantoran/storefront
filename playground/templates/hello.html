@@ -28,5 +28,11 @@
     {% if agg_count_result %}
         <p>Number of products: {{ agg_count_result }} </p>
     {% endif %}
+
+    {% if annotate_result %}
+        {% for p in annotate_result %}
+            <p> {{p.is_new}} - {{p.new_id}} </p>
+        {% endfor %}
+    {% endif %}
 </body>
 </html>

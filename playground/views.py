@@ -3,7 +3,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.db.models import Q, F
 from django.db.models.aggregates import Count, Max, Min, Avg, Sum
-from store.models import Product, OrderItem, Order
+from django.db.models import Value, F # Expression classes
+from store.models import Product, OrderItem, Order, Customer
 # Create your views here.
 
 def say_hello(request):
@@ -77,3 +78,9 @@ def aggregate(request):
     result = Product.objects.filter(collection__id=1).aggregate(
         products_count=Count('id'), min_price=Min('unit_price'))
     return render(request, 'hello.html', { 'name': 'Goku', 'agg_count_result': result })
+
+def annotate(request):
+    # Setting a new field is_new and setting to True using an expression object (cannot directly set is_new=True).
+    # F('id')) references the id field in the customer record
+    queryset = Customer.objects.annotate(is_new=Value(True), new_id=F('id') + 1)
+    return render(request, 'hello.html', { 'name': 'Goku', 'annotate_result': list(queryset)})

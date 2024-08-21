@@ -18,3 +18,10 @@ on_delete:
 - models.PROTECT: cannot delete the parent because the object is associated
 
 Django automatically creates an attribute in the Customer class for the object
+
+# Expression Class
+## Derived by
+- Value
+- F
+- Func
+- Aggregate
