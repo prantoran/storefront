@@ -111,3 +111,20 @@ Django will execute a queryset under certain scenarios:
 
 
 Operations on a queryset will return a new queryset. i.e. `query_set.filter().filter().order_by()`
+
+# SQL
+## Concat
+There are two ways to use the CONCAT function in SQL query:
+- Using Func() and F()
+```python
+from django.db.models import F, Func
+
+full_name=Func(F('first_name'), Value(' '), F('last_name'), function='CONCAT')
+```
+
+- Using Concat()
+```python
+from django.db.models.functions import Concat
+
+full_name=Concat('first_name', Value(' '), 'last_name')
+```

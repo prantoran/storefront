@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
-from django.db.models import Q, F
+from django.db.models import Q
+from django.db.models import F, Func, Value # Expression classes
+from django.db.models.functions import Concat
 from django.db.models.aggregates import Count, Max, Min, Avg, Sum
-from django.db.models import Value, F # Expression classes
 from store.models import Product, OrderItem, Order, Customer
 # Create your views here.
 
@@ -82,5 +83,11 @@ def aggregate(request):
 def annotate(request):
     # Setting a new field is_new and setting to True using an expression object (cannot directly set is_new=True).
     # F('id')) references the id field in the customer record
-    queryset = Customer.objects.annotate(is_new=Value(True), new_id=F('id') + 1)
+    queryset = Customer.objects.annotate(
+        is_new=Value(True), 
+        new_id=F('id') + 1,
+        full_name=Func(F('first_name'), Value(' '),
+                        F('last_name'), function='CONCAT'),
+        full_name_alt=Concat('first_name', Value(' '), 'last_name')
+    )
     return render(request, 'hello.html', { 'name': 'Goku', 'annotate_result': list(queryset)})
