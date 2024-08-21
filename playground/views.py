@@ -88,6 +88,31 @@ def annotate(request):
         new_id=F('id') + 1,
         full_name=Func(F('first_name'), Value(' '),
                         F('last_name'), function='CONCAT'),
-        full_name_alt=Concat('first_name', Value(' '), 'last_name')
+        full_name_alt=Concat('first_name', Value(' '), 'last_name'),
+        orders_count=Count('order')
     )
     return render(request, 'hello.html', { 'name': 'Goku', 'annotate_result': list(queryset)})
+
+    '''
+    Executed SQL query:
+    SELECT `store_customer`.`id`,
+        `store_customer`.`first_name`,
+        `store_customer`.`last_name`,
+        `store_customer`.`email`,
+        `store_customer`.`phone`,
+        `store_customer`.`birth_date`,
+        `store_customer`.`membership`,
+        1 AS `is_new`,
+        (`store_customer`.`id` + 1) AS `new_id`,
+        CONCAT(`store_customer`.`first_name`, ' ', `store_customer`.`last_name`) AS `full_name`,
+        CONCAT_WS('', `store_customer`.`first_name`, CONCAT_WS('', ' ', `store_customer`.`last_name`)) AS `full_name_alt`,
+        COUNT(`store_order`.`id`) AS `orders_count`
+    FROM `store_customer`
+    LEFT OUTER JOIN `store_order`
+        ON (`store_customer`.`id` = `store_order`.`customer_id`)
+    GROUP BY `store_customer`.`id`,
+            9,
+            10,
+            11
+    ORDER BY NULL
+    '''

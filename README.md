@@ -38,3 +38,4 @@ Notes for different Django topics:
 - [Model](/Notes/Model.md)
 - [Database](/Notes/DB.md)
 - [ORM](/Notes/DjangoORM.md)
+- [Database Functions](/Notes/DB_Functions.md)
