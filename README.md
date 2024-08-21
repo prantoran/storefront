@@ -26,7 +26,7 @@ django-admin startproject storefront .
 ### Run server
 
 ```bash
-mython manage.py runserver 8080
+python manage.py runserver 8080
 ```
 
 ## Notes

@@ -55,7 +55,15 @@ def say_hello(request):
     # return render(request, 'hello.html', { 'name': 'Goku', 'products': list(queryset), 'cheapest': product_cheapest })
 # ----------------
 
+# ---------------- Deferring fields
     # queryset = Product.objects.only('id', 'title')
-    queryset = Product.objects.defer('description') # defer the loading of certain fields later
+    # queryset = Product.objects.defer('description') # defer the loading of certain fields later
+    # return render(request, 'hello.html', { 'name': 'Goku', 'products': list(queryset) })
+# ----------------
+
+#----------------- Selecting related objects
+    # queryset = Product.objects.select_related('collection').all() # (1) instance of collection per product; Preload, creates a join between tables
+    # queryset = Product.objects.prefetch_related('promotions').all() # (n) instances of promotions per product;
+    queryset = Product.objects.prefetch_related('promotions').select_related('collection').all()
     return render(request, 'hello.html', { 'name': 'Goku', 'products': list(queryset) })
-    
+# ----------------
