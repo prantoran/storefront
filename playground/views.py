@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.db.models import Q, F
+from django.db.models.aggregates import Count, Max, Min, Avg, Sum
 from store.models import Product, OrderItem, Order
-
 # Create your views here.
 
 def say_hello(request):
@@ -72,3 +72,8 @@ def last_five(request):
     # Get the last 5 orders with their customers and items (incl product)
     queryset = Order.objects.prefetch_related('orderitem_set__product').select_related('customer').order_by('-placed_at')[:5]
     return render(request, 'hello.html', { 'name': 'Goku', 'orders': list(queryset) })
+
+def aggregate(request):
+    result = Product.objects.filter(collection__id=1).aggregate(
+        products_count=Count('id'), min_price=Min('unit_price'))
+    return render(request, 'hello.html', { 'name': 'Goku', 'agg_count_result': result })

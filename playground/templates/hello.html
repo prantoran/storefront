@@ -24,5 +24,9 @@
             <p> {{p.id}} - {{p.customer.first_name}} </p>
         {% endfor %}
     {% endif %}
+
+    {% if agg_count_result %}
+        <p>Number of products: {{ agg_count_result }} </p>
+    {% endif %}
 </body>
 </html>
