@@ -18,5 +18,11 @@
             <p> {{ p }} </p>
         {% endfor %}
     {% endif %}
+
+    {% if orders %}
+        {% for p in orders %}
+            <p> {{p.id}} - {{p.customer.first_name}} </p>
+        {% endfor %}
+    {% endif %}
 </body>
 </html>

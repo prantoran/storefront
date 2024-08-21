@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.db.models import Q, F
-from store.models import Product, OrderItem
+from store.models import Product, OrderItem, Order
 
 # Create your views here.
 
@@ -67,3 +67,8 @@ def say_hello(request):
     queryset = Product.objects.prefetch_related('promotions').select_related('collection').all()
     return render(request, 'hello.html', { 'name': 'Goku', 'products': list(queryset) })
 # ----------------
+
+def last_five(request):
+    # Get the last 5 orders with their customers and items (incl product)
+    queryset = Order.objects.prefetch_related('orderitem_set__product').select_related('customer').order_by('-placed_at')[:5]
+    return render(request, 'hello.html', { 'name': 'Goku', 'orders': list(queryset) })
