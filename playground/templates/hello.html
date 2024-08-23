@@ -40,5 +40,35 @@
             <p> {{p.discounted_price}} </p>
         {% endfor %}
     {% endif %}
+
+    {% if qs1 %}
+        {% for p in qs1 %}
+            <p> {{p.last_order_id}} </p>
+        {% endfor %}
+    {% endif %}
+
+    {% if qs2 %}
+        {% for p in qs2 %}
+            <p> {{p.products_count}} </p>
+        {% endfor %}
+    {% endif %} {% endcomment %}
+
+    {% if qs3 %}
+        {% for p in qs3 %}
+            <p> {{p.orders_count}} </p>
+        {% endfor %}
+    {% endif %} {% endcomment %}
+
+    {% if qs4 %}
+        {% for p in qs4 %}
+            <p> {{p.total_spent}} </p>
+        {% endfor %}
+    {% endif %} {% endcomment %}
+
+    {% if qs5 %}
+        {% for p in qs5 %}
+            <p> {{p.total_sales}} </p>
+        {% endfor %}
+    {% endif %}
 </body>
 </html>

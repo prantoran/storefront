@@ -5,7 +5,7 @@ from django.db.models import Q, DecimalField
 from django.db.models import F, Func, Value, ExpressionWrapper # Expression classes
 from django.db.models.functions import Concat
 from django.db.models.aggregates import Count, Max, Min, Avg, Sum
-from store.models import Product, OrderItem, Order, Customer
+from store.models import Product, OrderItem, Order, Customer, Collection
 # Create your views here.
 
 def say_hello(request):
@@ -89,10 +89,7 @@ def annotate(request):
         full_name=Func(F('first_name'), Value(' '),
                         F('last_name'), function='CONCAT'),
         full_name_alt=Concat('first_name', Value(' '), 'last_name'),
-        orders_count=Count('order'),
-        discounted_price=ExpressionWrapper(
-            F('unit_price') * 0.8, output_field=DecimalField()
-        )
+        orders_count=Count('order')
     )
     return render(request, 'hello.html', { 'name': 'Goku', 'annotate_result': list(queryset)})
 
@@ -120,10 +117,45 @@ def annotate(request):
     ORDER BY NULL
     '''
 
-def annotate(request):
+def annotate_product(request):
     queryset = Product.objects.annotate(
         discounted_price=ExpressionWrapper(
             F('unit_price') * 0.8, output_field=DecimalField()
         )
     )
     return render(request, 'hello.html', { 'name': 'Goku', 'annotate_product_result': list(queryset)})
+
+def annotate_practice(request):
+    # Customers with their last order ID
+    qs1 = Customer.objects.annotate(last_order_id=Max('order__id'))
+    # Collections and count of their products  
+    qs2 = Collection.objects.annotate(products_count=Count('product'))
+    # Customers with more than 5 orders
+    qs3 = Customer.objects \
+        .annotate(orders_count=Count('order')) \
+        .filter(orders_count__gt=5)
+    # Customers and the total amount they’ve spent 
+    qs4 = Customer.objects.annotate(
+        total_spent=Sum(
+            F('order__orderitem__unit_price') *
+            F('order__orderitem__quantity')
+        )
+    )
+    # Top 5 best-selling products and their total sales
+    qs5 = Product.objects.annotate(
+        total_sales=Sum(
+            F('orderitem__unit_price') *
+            F('orderitem__quantity')
+        )
+    ).order_by('-total_sales')[:5]
+    
+    return render(request, 'hello.html', {
+        'name': 'Goku', 
+        'qs1': list(qs1),
+        'qs2': list(qs2),
+        'qs3': list(qs3),
+        'qs4': list(qs4),
+        'qs5': list(qs5)
+    })
+
+
