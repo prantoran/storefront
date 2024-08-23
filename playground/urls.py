@@ -8,5 +8,6 @@ urlpatterns = [
     path('products_count/', views.aggregate),
     path('annotate/', views.annotate),
     path('annotate_product/', views.annotate_product),
-    path('annotate_practice/', views.annotate_practice)
+    path('annotate_practice/', views.annotate_practice),
+    path('contenttype/', views.contenttype)
 ]

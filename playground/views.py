@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.db.models import Q, DecimalField
@@ -6,6 +7,7 @@ from django.db.models import F, Func, Value, ExpressionWrapper # Expression clas
 from django.db.models.functions import Concat
 from django.db.models.aggregates import Count, Max, Min, Avg, Sum
 from store.models import Product, OrderItem, Order, Customer, Collection
+from tags.models import TaggedItem
 # Create your views here.
 
 def say_hello(request):
@@ -159,3 +161,14 @@ def annotate_practice(request):
     })
 
 
+def contenttype(request):
+    content_type = ContentType.objects.get_for_model(Product)
+
+    qs = TaggedItem.objects \
+        .select_related('tag') \
+        .filter(
+            content_type=content_type,
+            object_id=1
+    )
+
+    return render(request, 'hello.html', {'name': 'Nobody', 'tags': list(qs) })
