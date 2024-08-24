@@ -112,6 +112,9 @@ Django will execute a queryset under certain scenarios:
 
 Operations on a queryset will return a new queryset. i.e. `query_set.filter().filter().order_by()`
 
+## QuerySet Cache
+Caching happens only if we evaluate the entire queryset first.
+
 # SQL
 ## Concat
 There are two ways to use the CONCAT function in SQL query:

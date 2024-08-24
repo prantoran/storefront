@@ -172,3 +172,9 @@ def contenttype(request):
     )
 
     return render(request, 'hello.html', {'name': 'Nobody', 'tags': list(qs) })
+
+
+# same as contenttype, but using a customer manager in tags/models.py
+def taggeditem_custom_manager(request):
+    qs = TaggedItem.objects.get_tags_for(Product, 1)
+    return render(request, 'hello.html', {'name': 'Nobody', 'tags': list(qs) })
