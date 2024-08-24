@@ -10,5 +10,6 @@ urlpatterns = [
     path('annotate_product/', views.annotate_product),
     path('annotate_practice/', views.annotate_practice),
     path('contenttype/', views.contenttype),
-    path('taggeditem_custom_manager/', views.taggeditem_custom_manager)
+    path('taggeditem_custom_manager/', views.taggeditem_custom_manager),
+    path('create_collection/', views.create_collection)
 ]

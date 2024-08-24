@@ -160,7 +160,6 @@ def annotate_practice(request):
         'qs5': list(qs5)
     })
 
-
 def contenttype(request):
     content_type = ContentType.objects.get_for_model(Product)
 
@@ -173,8 +172,19 @@ def contenttype(request):
 
     return render(request, 'hello.html', {'name': 'Nobody', 'tags': list(qs) })
 
-
 # same as contenttype, but using a customer manager in tags/models.py
 def taggeditem_custom_manager(request):
     qs = TaggedItem.objects.get_tags_for(Product, 1)
     return render(request, 'hello.html', {'name': 'Nobody', 'tags': list(qs) })
+
+def create_collection(request):
+    c = Collection()
+    c.title = 'Video Games'
+    c.featured_product = Product(pk=1)
+    # c.featured_product_id = 1
+    c.save()
+
+    Collection.objects.create(title='a', featured_product_id=1)
+
+
+    return render(request, 'hello.html', {'name': 'Father?:(' })
