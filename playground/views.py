@@ -199,3 +199,12 @@ def update_collection(request):
     Collection.objects.filter(pk=12).update(featured_product_id=None, title='foo')
 
     return render(request, 'hello.html', {'name': 'Father?:(' })
+
+
+def delete_collection(request):
+    c = Collection(pk=11)
+    c.delete()
+
+    Collection.objects.filter(id__gt=12).delete()
+
+    return render(request, 'hello.html', {'name': 'Father?:(' })

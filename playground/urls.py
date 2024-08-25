@@ -12,5 +12,6 @@ urlpatterns = [
     path('contenttype/', views.contenttype),
     path('taggeditem_custom_manager/', views.taggeditem_custom_manager),
     path('create_collection/', views.create_collection),
-    path('update_collection/', views.update_collection)
+    path('update_collection/', views.update_collection),
+    path('delete_collection/', views.delete_collection)
 ]
