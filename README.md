@@ -39,3 +39,4 @@ Notes for different Django topics:
 - [Database](/Notes/DB.md)
 - [ORM](/Notes/DjangoORM.md)
 - [Database Functions](/Notes/DB_Functions.md)
+- [Admin App](/Notes/Admin.md)
