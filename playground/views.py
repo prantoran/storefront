@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
+from django.db import transaction
 from django.db.models import Q, DecimalField
 from django.db.models import F, Func, Value, ExpressionWrapper # Expression classes
 from django.db.models.functions import Concat
@@ -240,5 +241,22 @@ def cart_delete(request):
     # because cascading is enabled in the relationships between
     # cart and its items, deleting a cart automatically causes
     # deletion of its items
+
+    return render(request, 'hello.html', {'name': 'Goku'})
+
+
+# @transaction.atomic
+def order_transaction(request):
+    with transaction.atomic():
+        o = Order()
+        o.customer_id = 1
+        o.save()
+
+        oi = OrderItem()
+        oi.order = o
+        oi.product_id = 1
+        oi.quantity = 1
+        oi.unit_price = 1009
+        oi.save()
 
     return render(request, 'hello.html', {'name': 'Goku'})
