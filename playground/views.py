@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
-from django.db import transaction
+from django.db import transaction, connection
 from django.db.models import Q, DecimalField
 from django.db.models import F, Func, Value, ExpressionWrapper # Expression classes
 from django.db.models.functions import Concat
@@ -260,3 +260,18 @@ def order_transaction(request):
         oi.save()
 
     return render(request, 'hello.html', {'name': 'Goku'})
+
+
+def raw_sql(request):
+    raw_qs = Product.objects.raw('SELECT * FROM store_product')
+
+    cursor = connection.cursor()
+    cursor.execute('SELECT * FROM store_customer')
+    cursor.close()
+
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT * FROM store_order')
+        # execute stored procedures
+        # cursor.callproc('get_customers', [1, 2, 3])
+
+    return render(request, 'hello.html', {'name': 'Goku', 'raw_sql': list(raw_qs)})
