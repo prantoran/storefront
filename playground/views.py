@@ -188,3 +188,14 @@ def create_collection(request):
 
 
     return render(request, 'hello.html', {'name': 'Father?:(' })
+
+
+def update_collection(request):
+    c = Collection.objects.get(pk=11)
+    c.title = 'Yo'
+    c.featured_product = Product(pk=1)
+    c.save()
+
+    Collection.objects.filter(pk=12).update(featured_product_id=None, title='foo')
+
+    return render(request, 'hello.html', {'name': 'Father?:(' })
