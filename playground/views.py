@@ -6,7 +6,7 @@ from django.db.models import Q, DecimalField
 from django.db.models import F, Func, Value, ExpressionWrapper # Expression classes
 from django.db.models.functions import Concat
 from django.db.models.aggregates import Count, Max, Min, Avg, Sum
-from store.models import Product, OrderItem, Order, Customer, Collection
+from store.models import Product, OrderItem, Order, Customer, Collection, Cart, CartItem
 from tags.models import TaggedItem
 # Create your views here.
 
@@ -208,3 +208,37 @@ def delete_collection(request):
     Collection.objects.filter(id__gt=12).delete()
 
     return render(request, 'hello.html', {'name': 'Father?:(' })
+
+
+def cart_create(request):
+    # create a shopping cart with an item
+    c = Cart()
+    c.save()
+
+    ca = CartItem()
+    ca.cart = c
+    ca.product_id = 1
+    ca.quantity = 1
+    ca.save()
+
+    return render(request, 'hello.html', {'name': 'Goku'})
+
+
+def cart_update(request):
+    # update the quantity of an item
+    ca = CartItem.objects.get(pk=1)
+    ca.quantity = 9
+    ca.save()
+
+    return render(request, 'hello.html', {'name': 'Goku'})
+
+
+def cart_delete(request):
+    # remove a cart
+    c = Cart(pk=1)
+    c.delete()
+    # because cascading is enabled in the relationships between
+    # cart and its items, deleting a cart automatically causes
+    # deletion of its items
+
+    return render(request, 'hello.html', {'name': 'Goku'})

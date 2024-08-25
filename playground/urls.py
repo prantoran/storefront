@@ -13,5 +13,8 @@ urlpatterns = [
     path('taggeditem_custom_manager/', views.taggeditem_custom_manager),
     path('create_collection/', views.create_collection),
     path('update_collection/', views.update_collection),
-    path('delete_collection/', views.delete_collection)
+    path('delete_collection/', views.delete_collection),
+    path('cart_create/', views.cart_create),
+    path('cart_update/', views.cart_update),
+    path('cart_delete/', views.cart_delete),
 ]
