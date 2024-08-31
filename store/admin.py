@@ -40,6 +40,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ['collection', 'last_update', InventoryFilter]
     list_per_page = 10
     list_select_related = ['collection']
+    search_fields = ['title']
 
     @admin.display(ordering='inventory')
     def inventory_status(self, product):
@@ -106,8 +107,17 @@ class CollectionAdmin(admin.ModelAdmin):
         )
 
 
+class OrderItemInline(admin.TabularInline):
+    autocomplete_fields = ['product']
+    model = models.OrderItem
+    extra = 0 # remove the initial empty placeholders
+    min_num = 1
+    max_num = 10
+
+
 @admin.register(models.Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'placed_at', 'customer']
     autocomplete_fields = ['customer']
+    inlines = [OrderItemInline]
+    list_display = ['id', 'placed_at', 'customer']
     
