@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles', # Required by debug_toolbar
+    'rest_framework',
     'playground',
     'debug_toolbar',
     'store',
@@ -89,7 +90,7 @@ WSGI_APPLICATION = 'storefront.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
-        'NAME': 'storefront',
+        'NAME': 'storefront2',
         'HOST': '172.17.0.2',
         'PORT': '3306',
         'USER': 'root',

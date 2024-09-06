@@ -40,3 +40,4 @@ Notes for different Django topics:
 - [ORM](/Notes/DjangoORM.md)
 - [Database Functions](/Notes/DB_Functions.md)
 - [Admin App](/Notes/Admin.md)
+- [Django REST Framework](/Notes/REST_Framework.md)
