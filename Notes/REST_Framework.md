@@ -9,3 +9,9 @@ pip install djangorestframework
 | ------------- | ----------------- |
 | HttpRequest   | Request           |
 | HttpResponse  | Response          |
+
+
+# Serializer
+
+Converts a model instance to a dictionary
+
