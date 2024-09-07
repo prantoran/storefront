@@ -15,3 +15,8 @@ pip install djangorestframework
 
 Converts a model instance to a dictionary
 
+## Serializing Relationships
+- Primary key
+- String
+- Nested object
+- Hyperlink
