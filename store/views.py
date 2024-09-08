@@ -22,11 +22,12 @@ def product_list(request):
         # else:
         #     return Response(s.errors, status=status.HTTP_400_BAD_REQUEST)
         s.is_valid(raise_exception=True)
+        s.save()
         print(s.validated_data)
-        return Response('ok')
+        return Response(s.data, status=status.HTTP_201_CREATED)
 
 
-@api_view()
+@api_view(['GET', 'PUT'])
 def product_detail(request, id):
     # try:
     #     p = Product.objects.get(pk=id)
@@ -34,8 +35,13 @@ def product_detail(request, id):
     #     return Response(s.data)
     # except Product.DoesNotExist:
     #     return Response(status=status.HTTP_404_NOT_FOUND)
-    p = get_object_or_404(Product, pk=id)
-    s = ProductSerializer(p, context={'request': request})
+    product = get_object_or_404(Product, pk=id)
+    if request.method == 'GET':
+        s = ProductSerializer(product, context={'request': request})
+    elif request.method == 'PUT':
+        s = ProductSerializer(product, data=request.data)
+        s.is_valid(raise_exception=True)
+        s.save()
     return Response(s.data)
 
 
