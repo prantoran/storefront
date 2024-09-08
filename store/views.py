@@ -1,3 +1,4 @@
+from math import prod
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
@@ -27,7 +28,7 @@ def product_list(request):
         return Response(s.data, status=status.HTTP_201_CREATED)
 
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def product_detail(request, id):
     # try:
     #     p = Product.objects.get(pk=id)
@@ -36,13 +37,21 @@ def product_detail(request, id):
     # except Product.DoesNotExist:
     #     return Response(status=status.HTTP_404_NOT_FOUND)
     product = get_object_or_404(Product, pk=id)
-    if request.method == 'GET':
-        s = ProductSerializer(product, context={'request': request})
-    elif request.method == 'PUT':
-        s = ProductSerializer(product, data=request.data)
-        s.is_valid(raise_exception=True)
-        s.save()
-    return Response(s.data)
+    if request.method == 'DELETE':
+        if product.orderitems.count() > 0:
+            return Response({
+                'error': 'Product cannot be deleted because it is associated with an order item.'
+            }, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        product.delete()
+        return Response(status==status.HTTP_204_NO_CONTENT)
+    else:
+        if request.method == 'GET':
+            s = ProductSerializer(product, context={'request': request})
+        elif request.method == 'PUT':
+            s = ProductSerializer(product, data=request.data)
+            s.is_valid(raise_exception=True)
+            s.save()
+        return Response(s.data)
 
 
 @api_view()
