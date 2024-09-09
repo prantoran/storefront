@@ -1,11 +1,11 @@
-from math import prod
+from django.db.models.aggregates import Count
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Product
-from .serializers import ProductSerializer
+from .models import Product, Collection
+from .serializers import CollectionSerializer, ProductSerializer
 # Create your views here.
 
 
@@ -43,7 +43,7 @@ def product_detail(request, id):
                 'error': 'Product cannot be deleted because it is associated with an order item.'
             }, status=status.HTTP_405_METHOD_NOT_ALLOWED)
         product.delete()
-        return Response(status==status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
     else:
         if request.method == 'GET':
             s = ProductSerializer(product, context={'request': request})
@@ -54,6 +54,36 @@ def product_detail(request, id):
         return Response(s.data)
 
 
-@api_view()
+@api_view(['GET', 'POST'])
+def collection_list(request):
+    if request.method == 'GET':
+        queryset = Collection.objects.annotate(products_count=Count('products')).select_related('featured_product').all()
+        s = CollectionSerializer(queryset, many=True, context={'request': request})
+        return Response(s.data)
+    elif request.method == 'POST': 
+        s = CollectionSerializer(data=request.data)
+        s.is_valid(raise_exception=True)
+        s.save()
+        return Response(s.data, status=status.HTTP_201_CREATED)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
 def collection_detail(request, pk):
-    return Response('ok')
+    collection = get_object_or_404(
+        Collection.objects.annotate(
+            products_count=Count('products')), pk=pk)
+    if request.method == 'DELETE':
+        if collection.products.count() > 0:
+            return Response({
+                'error': 'Collection cannot be deleted because it is associated with a product.'
+            }, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        collection.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    else:
+        if request.method == 'GET':
+            s = CollectionSerializer(collection, context={'request': request})
+        elif request.method == 'PUT':
+            s = CollectionSerializer(collection, data=request.data)
+            s.is_valid(raise_exception=True)
+            s.save()
+        return Response(s.data)
