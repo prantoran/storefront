@@ -27,3 +27,8 @@ Converts a model instance to a dictionary
 For a related field within model, by default we get primary key for the related field using MS.
 
 We can use `"__all__"` for fields to include all fields of a model, but this is bad practice as this does not separate internal and external representation of a model.
+
+# Class-based views
+Using classes, instead of functions, to define views for REST methods.
+## Benefits of class-based views
+- Less messy, fewer conditional statements.
