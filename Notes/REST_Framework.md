@@ -44,3 +44,5 @@ Concrete class that implements one or two mixins.
 ## View Sets
 
 Combine the logic of multiple related views inside a single class
+
+We cannot use explicit url patterns with view sets. We need routers. We register a view set with a router and the router will take care of generating the url patterns.
