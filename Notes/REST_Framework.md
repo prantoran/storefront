@@ -37,6 +37,10 @@ Using classes, instead of functions, to define views for REST methods.
 
 Set of reusable common statements packed together.
 
-## Generice views
+## Generic views
 
 Concrete class that implements one or two mixins.
+
+## View Sets
+
+Combine the logic of multiple related views inside a single class
