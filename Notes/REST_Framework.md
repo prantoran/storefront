@@ -46,3 +46,8 @@ Concrete class that implements one or two mixins.
 Combine the logic of multiple related views inside a single class
 
 We cannot use explicit url patterns with view sets. We need routers. We register a view set with a router and the router will take care of generating the url patterns.
+
+# Building the API
+- Create a serializer
+- Create a view
+- Register a route

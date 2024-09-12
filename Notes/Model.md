@@ -24,5 +24,17 @@ Django automatically creates an attribute in the Customer class for the object
 - Value
 - F
 - Func
-- Aggregate
+- Aggregate 
 - ExpressionWrapper
+
+
+# Building the model
+- Create a model class
+- Create a migration
+```bash
+python manage.py makemigrations
+```
+- Apply the migration
+```bash
+python manage.py migrate
+```

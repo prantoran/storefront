@@ -1,7 +1,7 @@
 from decimal import Decimal
 from wsgiref import validate
 from rest_framework import serializers
-from store.models import Product, Collection
+from store.models import Product, Collection, Review
 
 
 class CollectionSerializer(serializers.ModelSerializer):
@@ -45,3 +45,8 @@ class ProductSerializer(serializers.ModelSerializer):
     #     instance.unit_price = validated_data.get('price')
     #     instance.save()
     #     return instance
+
+    class ReviewSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Review
+            fields = ['id', 'date', 'name', 'description', 'product']

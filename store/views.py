@@ -8,8 +8,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView # Class-based view
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import status
-from .models import Product, Collection, OrderItem
-from .serializers import CollectionSerializer, ProductSerializer
+from .models import Product, Collection, OrderItem, Review
+from .serializers import CollectionSerializer, ProductSerializer, ReviewSerializer
 # Create your views here.
 
 class ProductViewSet(ModelViewSet):
@@ -208,3 +208,8 @@ class CollectionViewSet(ModelViewSet):
 #             s.is_valid(raise_exception=True)
 #             s.save()
 #         return Response(s.data)
+
+
+class ReviewViewSet(ModelViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
