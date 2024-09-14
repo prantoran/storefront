@@ -57,3 +57,57 @@ We cannot use explicit url patterns with view sets. We need routers. We register
 ```bash
 pip install drf-nested-routers
 ```
+
+
+# Generic filtering
+
+```bash
+pip install django-filter
+```
+
+## Add package in settings
+```python
+INSTALLED_APPS = [
+    ...
+    'django_filters',
+    ...
+}
+```
+
+## Create Filter class in filter.py
+
+```python
+from django_filters.rest_framework import FilterSet
+from .models import Product
+
+
+
+class ProductFilter(FilterSet):
+    class Meta:
+        model = Product
+        fields = {
+            'collection_id': ['exact'],
+            'unit_price': ['gt', 'lt']
+        }
+```
+
+## Add filter to views
+
+```python
+from django_filters.rest_framework import DjangoFilterBackend
+from .filters import ProductFilter
+
+class ProductViewSet(ModelViewSet):
+    queryset = Product.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ProductFilter
+    # filterset_fields = ['collection_id', 'unit_price']
+
+    # def get_queryset(self):
+    #     queryset = Product.objects.all()
+    #     cid = self.request.query_params.get('collection_id')
+    #     if cid is not None:
+    #         queryset = queryset.filter(collection_id=cid)
+    #     return queryset
+    ...
+```

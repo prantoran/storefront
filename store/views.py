@@ -1,6 +1,7 @@
 from django.db.models.aggregates import Count
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.mixins import ListModelMixin, CreateModelMixin
 from rest_framework.decorators import api_view
@@ -9,18 +10,24 @@ from rest_framework.views import APIView # Class-based view
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import status
 from .models import Product, Collection, OrderItem, Review
+from .filters import ProductFilter
 from .serializers import CollectionSerializer, ProductSerializer, ReviewSerializer
 # Create your views here.
 
 class ProductViewSet(ModelViewSet):
+    queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ProductFilter
+    # filterset_fields = ['collection_id', 'unit_price']
 
-    def get_queryset(self):
-        queryset = Product.objects.all()
-        cid = self.request.query_params.get('collection_id')
-        if cid is not None:
-            queryset = queryset.filter(collection_id=cid)
-        return queryset
+
+    # def get_queryset(self):
+    #     queryset = Product.objects.all()
+    #     cid = self.request.query_params.get('collection_id')
+    #     if cid is not None:
+    #         queryset = queryset.filter(collection_id=cid)
+    #     return queryset
 
     def get_serializer_context(self):
         return {'request': self.request}

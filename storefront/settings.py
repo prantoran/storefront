@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles', # Required by debug_toolbar
+    'django_filters',
     'rest_framework',
     'playground',
     'debug_toolbar',
