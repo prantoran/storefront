@@ -51,3 +51,9 @@ We cannot use explicit url patterns with view sets. We need routers. We register
 - Create a serializer
 - Create a view
 - Register a route
+
+# Nested routers
+
+```bash
+pip install drf-nested-routers
+```
