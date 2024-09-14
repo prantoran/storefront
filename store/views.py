@@ -1,17 +1,19 @@
 from django.db.models.aggregates import Count
-from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
+from django.shortcuts import get_object_or_404
+from rest_framework.decorators import api_view # not neeeded if using classed based views
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView # not needed if using view sets
 from rest_framework.mixins import ListModelMixin, CreateModelMixin
-from rest_framework.decorators import api_view # not neeeded if using classed based views
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView # Class-based view
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import status
-from .models import Product, Collection, OrderItem, Review
 from .filters import ProductFilter
+from .models import Product, Collection, OrderItem, Review
+from .pagination import DefaultPagination
 from .serializers import CollectionSerializer, ProductSerializer, ReviewSerializer
 # Create your views here.
 
@@ -21,8 +23,9 @@ class ProductViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = ProductFilter
     # filterset_fields = ['collection_id', 'unit_price']
-    search_fields = ['title', 'description']
     ordering_fields = ['unit_price', 'last_update']
+    pagination_class = DefaultPagination
+    search_fields = ['title', 'description']
 
     # def get_queryset(self):
     #     queryset = Product.objects.all()

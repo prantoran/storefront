@@ -125,3 +125,37 @@ class ProductViewSet(ModelViewSet):
     ordering_fields = ['unit_price', 'last_update']
     ...
 ```
+
+# Pagination
+
+## Custom pagination
+
+### pagination.py
+
+```python
+from rest_framework.pagination import PageNumberPagination
+
+class DefaultPagination(PageNumberPagination):
+    page_size = 10
+```
+
+### views.py
+
+```python
+from .pagination import DefaultPagination
+
+class ProductViewSet(ModelViewSet):
+    pagination_class = DefaultPagination
+```
+ 
+## Pagination for all url routes
+
+### settings.py
+
+```python
+REST_FRAMEWORK = {
+# 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10
+}
+```
