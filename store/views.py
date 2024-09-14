@@ -2,9 +2,10 @@ from django.db.models.aggregates import Count
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.filters import SearchFilter
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView # not needed if using view sets
 from rest_framework.mixins import ListModelMixin, CreateModelMixin
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view # not neeeded if using classed based views
 from rest_framework.response import Response
 from rest_framework.views import APIView # Class-based view
 from rest_framework.viewsets import ModelViewSet
@@ -17,9 +18,10 @@ from .serializers import CollectionSerializer, ProductSerializer, ReviewSerializ
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = ProductFilter
     # filterset_fields = ['collection_id', 'unit_price']
+    search_fields = ['title', 'description']
 
 
     # def get_queryset(self):

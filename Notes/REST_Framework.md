@@ -111,3 +111,16 @@ class ProductViewSet(ModelViewSet):
     #     return queryset
     ...
 ```
+
+# Searching
+
+In store/views.py,
+
+```python
+from rest_framework.filters import SearchFilter
+
+class ProductViewSet(ModelViewSet):
+    filter_backends = [..., SearchFilter]
+    search_fields = ['title', 'description']
+    ...
+```
