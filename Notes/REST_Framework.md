@@ -112,15 +112,16 @@ class ProductViewSet(ModelViewSet):
     ...
 ```
 
-# Searching
+# Searching & Ordering
 
 In store/views.py,
 
 ```python
-from rest_framework.filters import SearchFilter
+from rest_framework.filters import SearchFilter, OrderingFilter
 
 class ProductViewSet(ModelViewSet):
-    filter_backends = [..., SearchFilter]
+    filter_backends = [..., SearchFilter, OrderingFilter]
     search_fields = ['title', 'description']
+    ordering_fields = ['unit_price', 'last_update']
     ...
 ```
