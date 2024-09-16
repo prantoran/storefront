@@ -38,3 +38,24 @@ python manage.py makemigrations
 ```bash
 python manage.py migrate
 ```
+
+# GUID
+Globally unique identifier
+32 char string
+
+We should use GUID show that the IDs are hard to predict.
+
+```python
+from uuid import uuid4
+
+class Cart(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4)
+```
+
+# Add unique constraint
+ 
+```python
+class CartItem(models.Model):
+    class Meta:
+        unique_together = [['cart', 'product']]  # needed for incrementing product qty for a cart instead of creating a new (cart, product) record
+```
