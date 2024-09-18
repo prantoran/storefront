@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view # not neeeded if using classed based views
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView # not needed if using view sets
-from rest_framework.mixins import ListModelMixin, CreateModelMixin, RetrieveModelMixin
+from rest_framework.mixins import ListModelMixin, CreateModelMixin, RetrieveModelMixin, DestroyModelMixin
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView # Class-based view
@@ -238,6 +238,9 @@ class ReviewViewSet(ModelViewSet):
         return {'product_id': self.kwargs['product_pk']}
     
 
-class CartViewSet(CreateModelMixin, RetrieveModelMixin, GenericViewSet):
+class CartViewSet(CreateModelMixin,
+                  RetrieveModelMixin,
+                  DestroyModelMixin,
+                  GenericViewSet):
     queryset = Cart.objects.prefetch_related('items__product').all()
     serializer_class = CartSerializer
