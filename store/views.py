@@ -12,9 +12,9 @@ from rest_framework.views import APIView # Class-based view
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework import status
 from .filters import ProductFilter
-from .models import Cart, Product, Collection, OrderItem, Review
+from .models import Cart, CartItem, Product, Collection, OrderItem, Review
 from .pagination import DefaultPagination
-from .serializers import CartSerializer, CollectionSerializer, ProductSerializer, ReviewSerializer
+from .serializers import CartItemSerializer, CartSerializer, CollectionSerializer, ProductSerializer, ReviewSerializer
 # Create your views here.
 
 class ProductViewSet(ModelViewSet):
@@ -244,3 +244,12 @@ class CartViewSet(CreateModelMixin,
                   GenericViewSet):
     queryset = Cart.objects.prefetch_related('items__product').all()
     serializer_class = CartSerializer
+
+
+class CartItemViewSet(ModelViewSet):
+    serializer_class = CartItemSerializer
+
+    def get_queryset(self):
+        return CartItem.objects \
+            .filter(cart_id=self.kwargs['cart_pk']) \
+            .select_related('product')
