@@ -45,3 +45,30 @@ AppUser
 Profile -> User
 
 - For storing non-auth related attributes
+
+
+# Groups
+
+A group is a collectionf of permissions.
+
+Create groups from the admin panel and assign groups in user's panel.
+
+## Custom permissions
+
+e.g.
+store/models.py
+
+```python
+class Order:
+    class Meta:
+        permissions = [
+            ('cancel_order', 'Can cancel order')
+        ]
+```
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+Creates a record in `auth_permissions` table in the Django db for the project.
