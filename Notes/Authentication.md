@@ -72,3 +72,10 @@ python manage.py migrate
 ```
 
 Creates a record in `auth_permissions` table in the Django db for the project.
+
+
+# Create user
+
+Default serializer used Djoser: 'user_create': 'djoser.serializers.UserCreateSerializer',
+
+'user_create': 'djoser.serializers.UserCreateSerializer'

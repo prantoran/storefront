@@ -163,3 +163,9 @@ AUTH_USER_MODEL = 'core.User'
 SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ('JWT',), # we specifying the prefix to be included in the request header
 }
+
+DJOSER = {
+    'SERIALIZERS': {
+        'user_create': 'core.serializers.UserCreateSerializer'
+    }
+}
