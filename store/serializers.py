@@ -2,7 +2,7 @@ from dataclasses import field
 from decimal import Decimal
 from wsgiref import validate
 from rest_framework import serializers
-from store.models import Cart, CartItem, Product, Collection, Review
+from store.models import Cart, CartItem, Customer, Product, Collection, Review
 
 
 class CollectionSerializer(serializers.ModelSerializer):
@@ -119,3 +119,11 @@ class UpdateCartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItem
         fields = ['quantity']
+
+
+class CustomerSerializer(serializers.ModelSerializer):
+
+    user_id = serializers.IntegerField() # user_id is created dynamically at runtime but we need this when updating user with phone, etc
+    class Meta:
+        model = Customer
+        fields = ['id', 'user_id', 'phone', 'birth_date', 'membership']
