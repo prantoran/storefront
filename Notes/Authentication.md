@@ -79,3 +79,32 @@ Creates a record in `auth_permissions` table in the Django db for the project.
 Default serializer used Djoser: 'user_create': 'djoser.serializers.UserCreateSerializer',
 
 'user_create': 'djoser.serializers.UserCreateSerializer'
+
+
+# Logging in
+
+## JWT token
+- https://django-rest-framework-simplejwt.readthedocs.io/en/latest
+
+```bash
+localhost:8080/auth/jwt/create
+```
+
+401 Unauthorized for wrong credentials (user, password)
+
+
+response after valid cred:
+
+```json
+HTTP 200 OK
+Allow: POST, OPTIONS
+Content-Type: application/json
+Vary: Accept
+
+{
+    "refresh": "...",
+    "access": "..."
+}
+```
+
+Access token is valid for 1 day and access token is valid for 5 minutes by default. The times can be changed by modifying keys of SIMPLE_JWT.
