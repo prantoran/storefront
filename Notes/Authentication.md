@@ -86,6 +86,9 @@ Default serializer used Djoser: 'user_create': 'djoser.serializers.UserCreateSer
 ## JWT token
 - https://django-rest-framework-simplejwt.readthedocs.io/en/latest
 
+
+### Create
+
 ```bash
 localhost:8080/auth/jwt/create
 ```
@@ -108,3 +111,20 @@ Vary: Accept
 ```
 
 Access token is valid for 1 day and access token is valid for 5 minutes by default. The times can be changed by modifying keys of SIMPLE_JWT.
+
+### Refresh access token
+
+```bash
+http://127.0.0.1:8080/auth/jwt/refresh
+```
+
+# Getting the current user
+
+```bash
+http://127.0.0.1:8080/auth/users/me/
+```
+Add JWT auth token using extensions, such as [ModHeader](https://chromewebstore.google.com/detail/modheader-modify-http-hea/idgpnmonknjnojddfkpgkljpfnnfcklj) from Chrome.
+
+Header key: `Authorization`
+value: `JWT`{access_token}
+- We add the JWT prefix because we defined so in settings.py::SIMPLE_JWT.AUTH_HEADER_TYPEs
