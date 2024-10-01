@@ -123,7 +123,7 @@ class UpdateCartItemSerializer(serializers.ModelSerializer):
 
 class CustomerSerializer(serializers.ModelSerializer):
 
-    user_id = serializers.IntegerField() # user_id is created dynamically at runtime but we need this when updating user with phone, etc
+    user_id = serializers.IntegerField(read_only=True) # user_id is created dynamically at runtime but we need this when updating user with phone, etc
     class Meta:
         model = Customer
         fields = ['id', 'user_id', 'phone', 'birth_date', 'membership']

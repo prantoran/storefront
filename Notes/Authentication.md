@@ -128,3 +128,9 @@ Add JWT auth token using extensions, such as [ModHeader](https://chromewebstore.
 Header key: `Authorization`
 value: `JWT`{access_token}
 - We add the JWT prefix because we defined so in settings.py::SIMPLE_JWT.AUTH_HEADER_TYPEs
+
+# Getting current user's profile
+
+```bash
+http://127.0.0.1:8080/store/customers/me/
+```
