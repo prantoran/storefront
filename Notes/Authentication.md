@@ -146,3 +146,9 @@ Enforce permissions based on group memberships.
 i.e. DjangoModelPermissionsOrAnonReadOnly, DjangoModelPermissions, IsAdminUser
 
 We can also have custom permission models by inheriting and extending the rest_framework.permissions.DjangoModelPermissions class.
+
+# Custom model permissions
+
+Add tuples in Model's Meta class' permissions list and run migrations. The mgiration creates a row in the `auth_permission` table.
+
+Then create a custom permission model that checks whether the custom permission is enabled, and then assign that custom permission model to action's permission_classes.

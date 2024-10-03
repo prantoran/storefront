@@ -17,7 +17,7 @@ from store.permissions import IsAdminOrReadOnly
 from .filters import ProductFilter
 from .models import Cart, CartItem, Product, Collection, OrderItem, Review, Customer
 from .pagination import DefaultPagination
-from .permissions import FullDjangoModelPermissions
+from .permissions import FullDjangoModelPermissions, ViewCustomerHistoryPermission
 from .serializers import AddCartItemSerializer, CartItemSerializer, CartSerializer, CollectionSerializer, CustomerSerializer, ProductSerializer, ReviewSerializer, UpdateCartItemSerializer
 # Create your views here.
 
@@ -277,16 +277,20 @@ class CustomerViewSet(ModelViewSet):
 # class CustomerViewSet(CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
-    permission_classes = [FullDjangoModelPermissions]
+    # permission_classes = [FullDjangoModelPermissions]
     # permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
     # permission_classes = [DjangoModelPermissions]
-    # permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser]
 
     # def get_permissions(self):
     #     if self.request.method == 'GET':
     #         return [AllowAny()]
     #     return [IsAuthenticated()]
-    
+
+
+    @action(detail=True, permission_classes=[ViewCustomerHistoryPermission])
+    def history(self, request, pk):
+        return Response('ok')
 
     @action(detail=False, methods=['GET', 'PUT'], permission_classes=[IsAuthenticated])
     def me(self, request):
