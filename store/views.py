@@ -7,7 +7,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView # not needed if using view sets
 from rest_framework.mixins import ListModelMixin, CreateModelMixin, RetrieveModelMixin, DestroyModelMixin, UpdateModelMixin
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser, DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView # Class-based view
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
@@ -17,6 +17,7 @@ from store.permissions import IsAdminOrReadOnly
 from .filters import ProductFilter
 from .models import Cart, CartItem, Product, Collection, OrderItem, Review, Customer
 from .pagination import DefaultPagination
+from .permissions import FullDjangoModelPermissions
 from .serializers import AddCartItemSerializer, CartItemSerializer, CartSerializer, CollectionSerializer, CustomerSerializer, ProductSerializer, ReviewSerializer, UpdateCartItemSerializer
 # Create your views here.
 
@@ -276,7 +277,10 @@ class CustomerViewSet(ModelViewSet):
 # class CustomerViewSet(CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [FullDjangoModelPermissions]
+    # permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+    # permission_classes = [DjangoModelPermissions]
+    # permission_classes = [IsAdminUser]
 
     # def get_permissions(self):
     #     if self.request.method == 'GET':

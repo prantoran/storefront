@@ -138,3 +138,11 @@ http://127.0.0.1:8080/store/customers/me/
 # Permissions
 
 https://www.django-rest-framework.org/api-guide/permissions
+
+
+# Django Model Permissions
+
+Enforce permissions based on group memberships.
+i.e. DjangoModelPermissionsOrAnonReadOnly, DjangoModelPermissions, IsAdminUser
+
+We can also have custom permission models by inheriting and extending the rest_framework.permissions.DjangoModelPermissions class.
