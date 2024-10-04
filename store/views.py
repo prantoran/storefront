@@ -15,11 +15,17 @@ from rest_framework import status
 
 from store.permissions import IsAdminOrReadOnly
 from .filters import ProductFilter
-from .models import Cart, CartItem, Product, Collection, OrderItem, Review, Customer
+from .models import Cart, CartItem, Order, Product, Collection, OrderItem, Review, Customer
 from .pagination import DefaultPagination
 from .permissions import FullDjangoModelPermissions, ViewCustomerHistoryPermission
-from .serializers import AddCartItemSerializer, CartItemSerializer, CartSerializer, CollectionSerializer, CustomerSerializer, ProductSerializer, ReviewSerializer, UpdateCartItemSerializer
+from .serializers import AddCartItemSerializer, CartItemSerializer, CartSerializer, CollectionSerializer, CustomerSerializer, OrderSerializer, ProductSerializer, ReviewSerializer, UpdateCartItemSerializer
 # Create your views here.
+
+
+class OrderViewSet(ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
 
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
