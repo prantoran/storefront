@@ -159,3 +159,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 ```
+
+# Command query seperation
+
+A get command (i.e. get_queryset()) should not modify db (i.e. create customer if not exist via get_or_create()).
