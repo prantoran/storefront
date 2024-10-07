@@ -7,3 +7,15 @@ View all orders
 
 POST
 create a order with cart_id
+
+
+
+http://localhost:8080/store/carts/{cart_id}/items
+
+GET
+
+View products added to cart 
+
+POST
+
+Add product id and quantity
