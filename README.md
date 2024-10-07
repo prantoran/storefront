@@ -35,6 +35,7 @@ Notes for different Django topics:
 - [App](/Notes/App.md)
 - [Authentication](/Notes/Authentication.md)
 - [Database](/Notes/DB.md)
+- [Endpoints](/Notes/Endpoints.md)
 - [Database Functions](/Notes/DB_Functions.md)
 - [Django REST Framework](/Notes/REST_Framework.md)
 - [Debug](/Notes/Debug.md)
