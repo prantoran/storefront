@@ -19,3 +19,9 @@ View products added to cart
 POST
 
 Add product id and quantity
+
+
+localhost:8080/auth/jwt/create
+
+POST
+Fetch jwt access and refresh tokens

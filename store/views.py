@@ -13,6 +13,7 @@ from rest_framework.views import APIView # Class-based view
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework import status
 
+from core import serializers
 from store.permissions import IsAdminOrReadOnly
 from .filters import ProductFilter
 from .models import Cart, CartItem, Order, Product, Collection, OrderItem, Review, Customer
@@ -27,13 +28,23 @@ class OrderViewSet(ModelViewSet):
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
 
+    def create(self, request, *args, **kwargs):
+        serializer = CreatedOrderSerializer(
+            data=request.data,
+            context={'user_id': self.request.user.id})
+        serializer.is_valid(raise_exception=True)
+        order = serializer.save()
+        serializer = OrderSerializer(order)
+        return Response(serializer.data)
+
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return CreatedOrderSerializer
         return OrderSerializer
 
-    def get_serializer_context(self):
-        return {'user_id': self.request.user.id}
+    # Needed/useful when using CreateModelMixin
+    # def get_serializer_context(self):
+    #     return {'user_id': self.request.user.id}
 
     def get_queryset(self):
         user = self.request.user
