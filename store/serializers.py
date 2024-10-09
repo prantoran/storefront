@@ -143,6 +143,13 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = ['id', 'customer', 'placed_at', 'payment_status', 'items']
 
 
+class UpdateOrderSerializer(serializers.ModelSerializer):
+    # We will use the Meta class, so we are inheriting ModelSerializer
+    class Meta:
+        model = Order
+        fields = ['payment_status']
+
+
 class CreatedOrderSerializer(serializers.Serializer):
     # we are not inheriting from ModelSerializer because Order model does not have the cart_id field
 

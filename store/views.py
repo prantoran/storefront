@@ -19,7 +19,7 @@ from .filters import ProductFilter
 from .models import Cart, CartItem, Order, Product, Collection, OrderItem, Review, Customer
 from .pagination import DefaultPagination
 from .permissions import FullDjangoModelPermissions, ViewCustomerHistoryPermission
-from .serializers import AddCartItemSerializer, CartItemSerializer, CartSerializer, CollectionSerializer, CreatedOrderSerializer, CustomerSerializer, OrderSerializer, ProductSerializer, ReviewSerializer, UpdateCartItemSerializer
+from .serializers import AddCartItemSerializer, CartItemSerializer, CartSerializer, CollectionSerializer, CreatedOrderSerializer, CustomerSerializer, OrderSerializer, ProductSerializer, ReviewSerializer, UpdateCartItemSerializer, UpdateOrderSerializer
 # Create your views here.
 
 
@@ -48,6 +48,8 @@ class OrderViewSet(ModelViewSet):
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return CreatedOrderSerializer
+        elif self.request.method == 'PATCH':
+            return UpdateOrderSerializer
         return OrderSerializer
 
     # Needed/useful when using CreateModelMixin
