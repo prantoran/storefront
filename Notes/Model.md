@@ -59,3 +59,27 @@ class CartItem(models.Model):
     class Meta:
         unique_together = [['cart', 'product']]  # needed for incrementing product qty for a cart instead of creating a new (cart, product) record
 ```
+
+
+# Signals
+
+Notifications/messages
+
+- pre_save
+
+Sent when a model is saved.
+
+- post_save
+
+After a model is saved.
+
+- pre_delete
+
+When a model is deleted.
+
+- post_delete
+
+After a model is deleted.
+
+We can listen to these notifications and change state.
+i.e. Get notified when a user is created.
