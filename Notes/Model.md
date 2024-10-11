@@ -65,6 +65,8 @@ class CartItem(models.Model):
 
 Notifications/messages
 
+We can decouple different modules of our app using signals.
+
 - pre_save
 
 Sent when a model is saved.
@@ -83,3 +85,5 @@ After a model is deleted.
 
 We can listen to these notifications and change state.
 i.e. Get notified when a user is created.
+
+Signals are handled using signal handlers, i.e defined in store/signals/handlers.py.
