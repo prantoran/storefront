@@ -31,6 +31,7 @@ Django automatically creates an attribute in the Customer class for the object
 # Building the model
 - Create a model class
 - Create a migration
+- Run the following whenever there are changes to models
 ```bash
 python manage.py makemigrations
 ```
@@ -38,6 +39,8 @@ python manage.py makemigrations
 ```bash
 python manage.py migrate
 ```
+
+
 
 # GUID
 Globally unique identifier

@@ -21,7 +21,7 @@ class Collection(models.Model):
     
     # change the str rep of objects
     def __str__(self) -> str:
-        return self.title
+        return self.title.__str__()
     
     class Meta:
         ordering = ['title']
@@ -45,10 +45,15 @@ class Product(models.Model):
     promotions = models.ManyToManyField(Promotion, related_name='product_set', blank=True)
 
     def __str__(self) -> str:
-        return self.title
+        return self.title.__str__()
     
     class Meta:
         ordering = ['title']
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='images')
+    image = models.ImageField(upload_to='store/images') # Relative to te MEDIA_ROOT defined in settings.py
 
 
 class Customer(models.Model):
