@@ -16,10 +16,14 @@ from rest_framework import status
 from core import serializers
 from store.permissions import IsAdminOrReadOnly
 from .filters import ProductFilter
-from .models import Cart, CartItem, Order, Product, Collection, OrderItem, Review, Customer
+from .models import Cart, CartItem, Order, Product, Collection, OrderItem, Review, Customer, ProductImage
 from .pagination import DefaultPagination
 from .permissions import FullDjangoModelPermissions, ViewCustomerHistoryPermission
-from .serializers import AddCartItemSerializer, CartItemSerializer, CartSerializer, CollectionSerializer, CreatedOrderSerializer, CustomerSerializer, OrderSerializer, ProductSerializer, ReviewSerializer, UpdateCartItemSerializer, UpdateOrderSerializer
+from .serializers import AddCartItemSerializer, CartItemSerializer, CartSerializer, CollectionSerializer, \
+    CreatedOrderSerializer, CustomerSerializer, OrderSerializer, ProductSerializer, ReviewSerializer, \
+    UpdateCartItemSerializer, UpdateOrderSerializer, ProductImageSerializer
+
+
 # Create your views here.
 
 
@@ -93,6 +97,20 @@ class ProductViewSet(ModelViewSet):
         
         return super().destroy(request, *args, **kwargs)
     
+
+class ProductImageViewSet(ModelViewSet):
+    # serializer for /products/1(product_pk)/images/1(pk)
+    # Extract product_pk and pass to serializer using context object
+    # In the serializer
+    serializer_class = ProductImageSerializer
+
+    def get_serializer_context(self):
+        return {'product_id': self.kwargs['product_pk']}
+
+    # queryset = Product.objects.all() # returns all product images
+    def get_queryset(self):
+        return ProductImage.objects.filter(product_id=self.kwargs['product_pk'])
+
 
 # class ProductList(ListCreateAPIView):
 #     queryset = Product.objects.select_related('collection').all()

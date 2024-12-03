@@ -2,7 +2,7 @@ from dataclasses import field
 from decimal import Decimal
 from django.db import transaction
 from rest_framework import serializers
-from .models import Cart, CartItem, Customer, Order, OrderItem, Product, Collection, Review
+from .models import Cart, CartItem, Customer, Order, OrderItem, Product, Collection, Review, ProductImage
 from .signals import order_created
 
 class CollectionSerializer(serializers.ModelSerializer):
@@ -46,6 +46,17 @@ class ProductSerializer(serializers.ModelSerializer):
     #     instance.unit_price = validated_data.get('price')
     #     instance.save()
     #     return instance
+
+
+class ProductImageSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        product_id = self.context.get('product_id')
+        return ProductImage.objects.create(product_id=product_id, **validated_data)
+
+    class Meta:
+        model = ProductImage
+        fields = ['id', 'image']
+
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
