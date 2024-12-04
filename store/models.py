@@ -5,6 +5,8 @@ from django.db import models
 from uuid import uuid4
 
 from store import permissions
+from store.validators import validate_file_size
+
 
 class Promotion(models.Model):
     description = models.CharField(max_length=255)
@@ -53,7 +55,10 @@ class Product(models.Model):
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='images')
-    image = models.ImageField(upload_to='store/images') # Relative to te MEDIA_ROOT defined in settings.py
+    image = models.ImageField(
+        upload_to='store/images', # Relative to te MEDIA_ROOT defined in settings.py
+        validators=[validate_file_size]
+    )
 
 
 class Customer(models.Model):
