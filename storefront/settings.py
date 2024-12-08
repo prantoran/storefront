@@ -14,6 +14,8 @@ import os
 from pathlib import Path
 from datetime import timedelta
 
+from django.conf.global_settings import EMAIL_BACKEND, EMAIL_HOST_PASSWORD
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -75,6 +77,13 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 ROOT_URLCONF = 'storefront.urls'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 2525
+DEFAULT_FROM_EMAIL = 'prantoran@gmail.com'
 
 TEMPLATES = [
     {
