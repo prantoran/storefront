@@ -1,3 +1,4 @@
+from django.core.mail import send_mail, mail_admins, BadHeaderError
 from django.shortcuts import render
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
@@ -69,9 +70,30 @@ def say_hello(request):
 #----------------- Selecting related objects
     # queryset = Product.objects.select_related('collection').all() # (1) instance of collection per product; Preload, creates a join between tables
     # queryset = Product.objects.prefetch_related('promotions').all() # (n) instances of promotions per product;
-    queryset = Product.objects.prefetch_related('promotions').select_related('collection').all()
-    return render(request, 'hello.html', { 'name': 'Goku', 'products': list(queryset) })
+
+    # queryset = Product.objects.prefetch_related('promotions').select_related('collection').all()
+    # return render(request, 'hello.html', { 'name': 'Goku', 'products': list(queryset) })
 # ----------------
+# ---------------- Sending email
+    print("received request")
+    try:
+        mail_admins(
+            'subject',
+            'message',
+            fail_silently=False,
+            html_message='message'
+        )
+        # send_mail(
+        #     'subject',
+        #     'message',
+        #     'prantoran@gmail.com',
+        #     ['zerotounite007@gmail.com'])
+    except BadHeaderError as err:
+        print("Bad header error: ", err)
+        pass
+    return render(request, 'hello.html', { 'name': 'Goku'})
+
+
 
 def last_five(request):
     # Get the last 5 orders with their customers and items (incl product)
