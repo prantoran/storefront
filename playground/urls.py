@@ -3,6 +3,8 @@ from . import views
 
 # URLConf, Django looks for this
 urlpatterns = [
+    path('attach_file', views.attach_file),
+    path('mail_admin', views.mail_admin),
     path('hello/', views.say_hello),
     path('last_five/', views.last_five),
     path('products_count/', views.aggregate),

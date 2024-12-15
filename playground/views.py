@@ -1,4 +1,4 @@
-from django.core.mail import send_mail, mail_admins, BadHeaderError
+from django.core.mail import send_mail, mail_admins, EmailMessage, BadHeaderError
 from django.shortcuts import render
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
@@ -11,6 +11,35 @@ from django.db.models.aggregates import Count, Max, Min, Avg, Sum
 from store.models import Product, OrderItem, Order, Customer, Collection, Cart, CartItem
 from tags.models import TaggedItem
 # Create your views here.
+
+
+def attach_file(request):
+    try:
+        email = EmailMessage(
+            'subject',
+            'message',
+            'prantoran@gmail.com',
+            ['zerotounite007@gmail.com'])
+        email.attach_file('playground/static/test.txt')
+        email.send()
+    except BadHeaderError as err:
+        print("Bad header error: ", err)
+        pass
+    return HttpResponse('Email sent')
+
+
+def mail_admin(request):
+    try:
+        mail_admins(
+            'subject',
+            'message',
+            fail_silently=False,
+            html_message='message'
+        )
+    except BadHeaderError as err:
+        print("Bad header error: ", err)
+        pass
+    return HttpResponse('Email sent')
 
 def say_hello(request):
     # queryset = Product.objects.all()
