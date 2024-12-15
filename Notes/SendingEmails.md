@@ -17,3 +17,8 @@ Dashboard: http://localhost:5000/
 - File
 - Locmem (local memory)
 - Dummy (does nothing)
+
+## Sending templated emails
+
+[django-templated-mail](https://pypi.org/project/django-templated-mail)
+

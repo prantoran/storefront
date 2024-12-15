@@ -10,7 +10,23 @@ from django.db.models.functions import Concat
 from django.db.models.aggregates import Count, Max, Min, Avg, Sum
 from store.models import Product, OrderItem, Order, Customer, Collection, Cart, CartItem
 from tags.models import TaggedItem
+from templated_mail.mail import BaseEmailMessage
 # Create your views here.
+
+
+def templated_emails(request):
+    try:
+        email = BaseEmailMessage(
+            template_name='emails/hello.html',
+            context={
+                'name': 'Vegeta'
+            },
+        )
+        email.send(to=['zerotounite007@gmail.com'])
+    except BadHeaderError as err:
+        print("Bad header error: ", err)
+        pass
+    return HttpResponse('Email sent')
 
 
 def attach_file(request):

@@ -3,6 +3,7 @@ from . import views
 
 # URLConf, Django looks for this
 urlpatterns = [
+    path('templated_emails', views.templated_emails),
     path('attach_file', views.attach_file),
     path('mail_admin', views.mail_admin),
     path('hello/', views.say_hello),
