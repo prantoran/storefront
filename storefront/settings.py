@@ -87,6 +87,9 @@ DEFAULT_FROM_EMAIL = 'prantoran@gmail.com'
 
 ADMINS = [('Prantoran', 'prantoran@gmail.com')]
 
+CELERY_BROKER_URL = 'redis://localhost:6379/1'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates', # Required by debug_toolbar
