@@ -3,6 +3,7 @@ from . import views
 
 # URLConf, Django looks for this
 urlpatterns = [
+    path('celery_task', views.celery_task),
     path('templated_emails', views.templated_emails),
     path('attach_file', views.attach_file),
     path('mail_admin', views.mail_admin),

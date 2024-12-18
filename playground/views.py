@@ -11,7 +11,16 @@ from django.db.models.aggregates import Count, Max, Min, Avg, Sum
 from store.models import Product, OrderItem, Order, Customer, Collection, Cart, CartItem
 from tags.models import TaggedItem
 from templated_mail.mail import BaseEmailMessage
+from .tasks import notify_customers
+
 # Create your views here.
+
+
+def celery_task(request):
+    notify_customers.delay('Yo')
+
+    return HttpResponse('notifications sent')
+
 
 
 def templated_emails(request):
