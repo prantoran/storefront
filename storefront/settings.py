@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
+from celery.schedules import crontab
 
 from django.conf.global_settings import EMAIL_BACKEND, EMAIL_HOST_PASSWORD
 
@@ -89,6 +90,13 @@ ADMINS = [('Prantoran', 'prantoran@gmail.com')]
 
 CELERY_BROKER_URL = 'redis://localhost:6379/1'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'
+CELERY_BEAT_SCHEDULE = {
+    'notify_customers': {
+        'task': 'playground.tasks.notify_customers',
+        'schedule': 5, # crontab(minute='*/5'), # 5 # seconds
+        'args': ['Hellow World'],
+    }
+}
 
 TEMPLATES = [
     {
