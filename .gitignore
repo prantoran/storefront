@@ -6,3 +6,6 @@ db.sqlite3
 config
 .idea
 .vscode
+celerybeat-schedule.*
+media/store/images/
+store/management/commands/__pycache__/

@@ -11,3 +11,7 @@ class TestCreateCollection:
         response = client.post('/store/collections/', data={'title': 'a'})
         # assert
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
+
+    @pytest.mark.skip
+    def test_skip(self):
+        assert False
