@@ -36,3 +36,9 @@ command:
 ptw
 ```
 - Once executed, listens for changes and reruns unit tests
+
+# Fixtures
+
+Putting common code in `conftest.py` which are automatically loaded for each test.
+
+These reusable functions are called fixtures.
