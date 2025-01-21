@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import status
 import pytest
-
 from store.models import Collection
+from model_bakery import baker
 
 @pytest.fixture
 def create_collection(api_client):
@@ -51,3 +51,17 @@ class TestCreateCollection:
     @pytest.mark.skip
     def test_skip(self):
         assert False
+
+@pytest.mark.django_db
+class TestRetrieveCollection:
+    def test_if_collection_exists_returns_200(self, api_client):
+        # Arrange
+        collection = baker.make(Collection) # Instantiate a Collection with random values
+        response = api_client.get(f'/store/collections/{collection.id}/')
+        assert response.status_code == status.HTTP_200_OK
+        assert response.data == {
+            'id': collection.id,
+            'title': collection.title,
+            'featured_product': None,
+            'products_count': 0
+        }

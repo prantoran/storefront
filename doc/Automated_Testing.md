@@ -42,3 +42,18 @@ ptw
 Putting common code in `conftest.py` which are automatically loaded for each test.
 
 These reusable functions are called fixtures.
+
+# Initialize objects with random values
+
+```python
+from model_bakery import baker
+...
+    collection = baker.make(Collection)
+```
+
+# Test DB
+
+Pytest creates a temporary separate DB with `test_` prefix, 
+i.e. test_storefront, where all data modified during test runs are stored.
+
+The temporary DB is deleted once all the tests are executed. 
