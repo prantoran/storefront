@@ -12,8 +12,14 @@ from store.models import Product, OrderItem, Order, Customer, Collection, Cart, 
 from tags.models import TaggedItem
 from templated_mail.mail import BaseEmailMessage
 from .tasks import notify_customers
+import requests
 
 # Create your views here.
+
+
+def slow_api(request):
+    requests.get('https://httpbin.org/delay/2')
+    return HttpResponse('Slow API')
 
 
 def celery_task(request):
@@ -213,7 +219,7 @@ def annotate_practice(request):
     qs3 = Customer.objects \
         .annotate(orders_count=Count('order')) \
         .filter(orders_count__gt=5)
-    # Customers and the total amount they’ve spent 
+    # Customers and the total amount they've spent 
     qs4 = Customer.objects.annotate(
         total_spent=Sum(
             F('order__orderitem__unit_price') *

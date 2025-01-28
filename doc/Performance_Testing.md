@@ -103,3 +103,20 @@ python manage.py migrate
 ```bash
 python manage.py collectstatic
 ```
+
+
+
+# Baseline performance benchmark
+
+## Simulating slow API
+- http://httpbin.org/delay/2
+
+```python
+    @task(1)
+    def slow_api(self):
+        self.client.get("/playground/slow_api/")
+```
+
+```bash
+locust -f locustfiles/browse_products.py
+```

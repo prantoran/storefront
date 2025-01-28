@@ -23,4 +23,5 @@ urlpatterns = [
     path('cart_delete/', views.cart_delete),
     path('order_transaction/', views.order_transaction),
     path('raw_sql/', views.raw_sql),
+    path('slow_api/', views.slow_api),
 ]

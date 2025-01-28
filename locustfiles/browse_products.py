@@ -23,7 +23,7 @@ class WebsiteUser(HttpUser):
             f"/store/products/{product_id}/",
             name="/store/products/:id")
 
-    @task(1)
+    @task(4)
     def add_to_cart(self):
         print("Add to cart")
         product_id = randint(1, 10)
@@ -32,6 +32,10 @@ class WebsiteUser(HttpUser):
             name="/store/carts/items/",
             json={"product_id": product_id, "quantity": 1}
         )
+
+    @task(4)
+    def slow_api(self):
+        self.client.get("/playground/slow_api/", name="/playground/slow_api/")
 
     def on_start(self):
         response = self.client.post("/store/carts/")
