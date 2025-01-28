@@ -78,3 +78,5 @@ Notes for different Django topics:
 - [Template](/doc/Template.md)
 - [View](/doc/View.md)
 - [Automated Testing](/doc/Automated_Testing.md)
+- [Performance Testing](/doc/Performance_Testing.md)
+- [Cache](/doc/Cache.md)

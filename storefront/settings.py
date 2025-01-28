@@ -211,3 +211,13 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',), # we specifying the prefix to be included in the request header
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
 }
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/2",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
