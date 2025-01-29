@@ -12,5 +12,5 @@ docker run -d -p 6379:6379 redis
 
 - [django-redis](https://github.com/jazzband/django-redis)
 ```bash
-python -m pip install python-redis
+python -m pip install python-redis django_redis
 ```

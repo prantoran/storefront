@@ -1,4 +1,5 @@
 from django.core.mail import send_mail, mail_admins, EmailMessage, BadHeaderError
+from django.core.cache import cache
 from django.shortcuts import render
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
@@ -18,8 +19,12 @@ import requests
 
 
 def slow_api(request):
-    requests.get('https://httpbin.org/delay/2')
-    return HttpResponse('Slow API')
+    key = 'httpbin_result'
+    if cache.get(key) is None:
+        result = requests.get('https://httpbin.org/delay/2')
+        data = result.json()
+        cache.set(key, data, timeout=60)
+    return render(request, 'hello.html', {'name': cache.get(key)})
 
 
 def celery_task(request):
