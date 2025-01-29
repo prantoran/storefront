@@ -24,4 +24,6 @@ urlpatterns = [
     path('order_transaction/', views.order_transaction),
     path('raw_sql/', views.raw_sql),
     path('slow_api/', views.slow_api),
+    path('slow_api_v2/', views.slow_api_v2),
+    path('slow_api_v3/', views.HelloView.as_view()),
 ]
